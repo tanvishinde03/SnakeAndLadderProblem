@@ -10,69 +10,98 @@ namespace SnakeAndLadderProblem
     {
         public void PoisitionCheck()
         {
-            int player_position = 0;
-            int no_Play = 0;
-            int die_Count = 0;
-            while (player_position <= 100)                      //UC6
-
+            const int FirstPosition = 0;                   //UC7
+            int position1 = 0;
+            int position2 = 0;
+            int DiceRoll1, DiceRoll2;
+            int count = 0;
+            Console.WriteLine("Player 1 is starting with position " + FirstPosition);
+            Console.WriteLine("Player 2 is starting with position " + FirstPosition);
+            while (position1 < 100 || position2 < 100)
             {
-
-                Random random = new Random();
-                int dice_number = random.Next(1, 7);
-                Console.WriteLine("Number on dice : " + dice_number);
-                die_Count++;
-
-
+                count++;
                 Random random1 = new Random();
-                int option = random1.Next(1, 4);
-                Console.WriteLine("Number of option " + option);
-
-                if (option == 1)
+                DiceRoll1 = random1.Next(1, 7);
+                Random random2 = new Random();
+                DiceRoll2 = random2.Next(1, 7);
+                Console.WriteLine("The number player 1 got through dice is " + DiceRoll1);
+                Console.WriteLine("The number player 2 got through dice is " + DiceRoll2);
+                Random random3 = new Random();
+                int Play1 = random3.Next(1, 4);
+                Random random4 = new Random();
+                int Play2 = random4.Next(1, 4);
+                if (Play1 == 1)
                 {
-                    player_position = player_position + dice_number;
-
-                    if (player_position == 100)
-                    {
-                        Console.WriteLine("Player position is {0} and \" Player has won \" ", player_position);
-                        break;
-                    }
-                    else if (player_position > 100)
-                    {
-                        player_position = player_position - dice_number;
-                    }
-
-                    Console.WriteLine("Player position moves ahead by {0} : {1}", dice_number, player_position);
+                    Console.WriteLine("Player 1 got no play");
+                    DiceRoll1 = 0;
+                    position1 = position1 + DiceRoll1;
                 }
-
-                else if (option == 2)
+                else if (Play1 == 2)
                 {
-                    player_position = player_position - dice_number;
+                    Console.WriteLine("Player 1 got ladder");
+                    position1 = (position1 + DiceRoll1);
 
-                    if (player_position < 0)
-                    {
-                        player_position = 0;
-                        Console.WriteLine("Player starts again from 0 position");
-                    }
-
-                    Console.WriteLine("Player position moves behind by {0} : {1}", dice_number, player_position);
                 }
-
                 else
                 {
-                    player_position = player_position + no_Play;
-                    Console.WriteLine("Player position remain same : " + player_position);
+                    Console.WriteLine("Player 1 got snake");
+                    position1 = (position1 - DiceRoll1);
+                    if (position1 < 0)
+                    {
+                        position1 = FirstPosition;
+                    }
                 }
+                if (position1 > 100)
+                {
+                    position1 = position1 - DiceRoll1;
+                }
+                Console.WriteLine("The player 1 position is: " + position1);
+
+
+
+                if (Play2 == 1)
+                {
+                    Console.WriteLine("Player 2 got no play");
+                    DiceRoll2 = 0;
+                    position2 = position2 + DiceRoll2;
+                }
+                else if (Play2 == 2)
+                {
+                    Console.WriteLine("Player 2 got ladder");
+                    position2 = (position2 + DiceRoll2);
+
+                }
+                else
+                {
+                    Console.WriteLine("Player 2 got snake");
+                    position2 = (position2 - DiceRoll2);
+                    if (position2 < 0)
+                    {
+                        position2 = FirstPosition;
+                    }
+                }
+                if (position2 > 100)
+                {
+                    position2 = position2 - DiceRoll2;
+                }
+                Console.WriteLine("The player 2 position is: " + position2);
             }
-            Console.WriteLine("Total dies played in the game : " + die_Count);
+            Console.WriteLine("No of times players rolled dice is:" + count);
+            if (position1 == 100)
+                Console.WriteLine("Player1 Won the Match");
+            else
+                Console.WriteLine("Player2 Won the Match");
             Console.ReadLine();
         }
-
-
-
-
     }
-
 }
+
+
+
+
+    
+
+
 
 
 
